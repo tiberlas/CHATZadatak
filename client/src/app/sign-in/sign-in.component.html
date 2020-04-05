@@ -1,0 +1,36 @@
+<div class="row">
+    <div class="col-12 text-center">
+        <br>
+        <h1 class="text-warning">Sign in, start chatting</h1>
+        <br>
+
+        <div class="row">
+            <div class="col-sm-4 col-md-5"></div>
+
+            <div class="col-sm-8 col-md-7">
+                <form #SignInForm="ngForm" (submit)="onSignIn(f)">
+                    <div class="form-group row">
+                        <label for="staticEmail" class="col-form-label text-warning">Username</label>
+                        <div class="col-sm-6 col-md-8">
+                            <input type="text" class="form-control-plaintext" id="inputUsername" placeholder="Username"
+                                required />
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="inputPassword" class=" col-form-label text-warning">Password</label>
+                        <div class="col-sm-6 col-md-8">
+                            <input type="password" class="form-control-plaintext" id="inputPassword"
+                                placeholder="Password" [value]="password">
+                        </div>
+                    </div>
+
+                    <span class="row">
+                        <a href="" class="text-secondary">need acaunt?</a>&nbsp;&nbsp;
+                        <button type="submit" class="btn btn-warning">Sing in</button>
+                    </span>
+
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
