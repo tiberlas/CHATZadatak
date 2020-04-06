@@ -14,6 +14,9 @@ import { MessageComponent } from './messages/message/message.component';
 import { PrivateMessageComponent } from './modal/private-message/private-message.component';
 import { GlobalMessageComponent } from './modal/global-message/global-message.component';
 import { SignInComponent } from './sign-in/sign-in.component';
+import { RegisterComponent } from './sign-in/register/register.component';
+import { NotFoundComponent } from './not-found/not-found.component';
+import { HomeComponent } from './home/home.component';
 
 @NgModule({
   declarations: [
@@ -26,7 +29,10 @@ import { SignInComponent } from './sign-in/sign-in.component';
     MessageComponent,
     PrivateMessageComponent,
     GlobalMessageComponent,
-    SignInComponent
+    SignInComponent,
+    RegisterComponent,
+    NotFoundComponent,
+    HomeComponent
   ],
   imports: [
     BrowserModule,

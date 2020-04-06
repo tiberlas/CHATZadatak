@@ -1,1 +1,64 @@
-<p>register works!</p>
+<div class="container">
+    <div class="row">
+        <div class="col-12 text-center">
+            <br>
+            <h1 class="text-warning">Create a new account</h1>
+            <br>
+        </div>
+    </div>
+
+    <div class="row justify-content-center">
+
+        <div class="col-xs-10 col-sm-9 col-md-8 ml-5">
+            <form (ngSubmit)="onCreateAccount(f)" #f="ngForm">
+                <div class="form-group row">
+                    <label for="inputUsername" class="col-form-label"
+                        [ngClass]="{'text-warning': !usernameTaken, 'text-danger': usernameTaken}">
+                        Username
+                        <span *ngIf="usernameTaken" class="text-danger"><i
+                                class="fas fa-exclamation-triangle"></i></span>
+                    </label>
+                    <div class="col-5">
+                        <input type="text" class="form-control-plaintext" id="inputUsername" name="inputUsername"
+                            ngModel placeholder="Username" required #username="ngModel" />
+                    </div>
+                </div>
+                <div class=" form-group row">
+                    <label for="inputPassword" class="col-form-label"
+                        [ngClass]="{'text-warning': !passwordsDontMatch, 'text-danger': passwordsDontMatch}">
+                        Password
+                        <span *ngIf="passwordsDontMatch" class="text-danger"><i
+                                class="fas fa-exclamation-triangle"></i></span>
+                    </label>
+                    <div class="col-5">
+                        <input type="password" class="form-control-plaintext" id="inputPassword" name="inputPassword"
+                            ngModel required placeholder="Password">
+                    </div>
+                </div>
+
+                <div class=" form-group row">
+                    <label for="inputPassword2" class="col-form-label"
+                        [ngClass]="{'text-warning': !passwordsDontMatch, 'text-danger': passwordsDontMatch}">
+                        Repeate password
+                        <span *ngIf="passwordsDontMatch" class="text-danger"><i
+                                class="fas fa-exclamation-triangle"></i></span>
+                    </label>
+                    <div class="col-5">
+                        <input type="password" class="form-control-plaintext" id="inputPassword2" name="inputPassword2"
+                            ngModel required placeholder="Repeate password">
+                    </div>
+                </div>
+
+                <p *ngIf="usernameTaken" class="text-danger">Username is takken, please try a diffrent name.</p>
+                <p *ngIf="passwordsDontMatch" class="text-danger">Passwords didn't match, please try again.</p>
+
+                <span class="row">
+                    <a routerLink="/sign-in" class="text-secondary">sign in?</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    <button type="submit" class="btn btn-warning" [disabled]="!f.valid">Create
+                        account</button>
+                </span>
+
+            </form>
+        </div>
+    </div>
+</div>
