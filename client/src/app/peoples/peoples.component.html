@@ -1,1 +1,22 @@
-<p>peoples works!</p>
+<br>
+<div class="container">
+    <div class="row">
+        <div class="col-xs-12 col-sm-6 text-warning">
+            <h5>{{showActiveUsers? 'active users':'all users'}}</h5>
+        </div>
+        <div class="col-xs-12 col-sm-6">
+            <button type="button" (click)="onChangeShowUsers()" class="btn btn-warning">
+                {{showActiveUsers? 'all':'active'}}
+            </button>
+        </div>
+    </div>
+
+    <hr class="bg-warning">
+    <!-- lista usera -->
+    <div class="row">
+        <div class="col-12">
+            <app-registered *ngIf="!showActiveUsers"></app-registered>
+            <app-logged-in *ngIf="showActiveUsers"></app-logged-in>
+        </div>
+    </div>
+</div>

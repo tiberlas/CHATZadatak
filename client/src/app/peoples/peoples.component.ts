@@ -1,15 +1,18 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
+import { UserModel } from '../model/user.model';
 
 @Component({
-  selector: 'app-peoples',
-  templateUrl: './peoples.component.html',
-  styleUrls: ['./peoples.component.css']
+	selector: 'peoples-chatagent',
+	templateUrl: './peoples.component.html',
+	styleUrls: ['./peoples.component.css']
 })
-export class PeoplesComponent implements OnInit {
+export class PeoplesComponent {
 
-  constructor() { }
+	//if true then only logged users will be shown; else all users are shown
+	private showActiveUsers: boolean = true;
 
-  ngOnInit() {
-  }
+	onChangeShowUsers() {
+		this.showActiveUsers = !this.showActiveUsers;
+	}
 
 }

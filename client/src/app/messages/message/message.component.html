@@ -1,1 +1,17 @@
-<p>message works!</p>
+<div class="card bg-secondary">
+    <div class="card-title bg-warning pl-3 pr-3">
+        <div class="row justify-content-between">
+            <h5>{{message.header}}</h5>
+            <h6>{{message.creationDate.getDate()}}.{{message.creationDate.getMonth() + 1}}.{{message.creationDate.getFullYear()}}
+            </h6>
+        </div>
+    </div>
+    <div class="card-body">
+        <p class="card-text text-warning">{{message.body}}</p>
+
+        <hr class="bg-warning">
+        <div class="card-fotter">
+            <div class="badge badge-warning">{{message.sender}}</div>
+        </div>
+    </div>
+</div>

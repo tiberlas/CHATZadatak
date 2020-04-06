@@ -1,1 +1,14 @@
-<p>messages works!</p>
+<br>
+<div class="container">
+    <div class="row">
+        <button type="button" class="btn btn-warning" (click)="onRefresh()">refresh</button>
+    </div>
+
+    <br>
+
+    <div *ngFor="let m of messages">
+        <app-message [message]="m"></app-message>
+        <br>
+    </div>
+
+</div>
