@@ -1,15 +1,16 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
+import { ModalDialogService } from 'src/app/services/modal-dialog.service';
 
 @Component({
   selector: 'app-private-message',
   templateUrl: './private-message.component.html',
   styleUrls: ['./private-message.component.css']
 })
-export class PrivateMessageComponent implements OnInit {
+export class PrivateMessageComponent {
 
-  constructor() { }
+  constructor(private modalDialog: ModalDialogService) { }
 
-  ngOnInit() {
+  onClose() {
+    this.modalDialog.tooglePrivateMessage();
   }
-
 }

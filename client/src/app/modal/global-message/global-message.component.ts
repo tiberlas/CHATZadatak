@@ -1,15 +1,17 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
+import { ModalDialogService } from 'src/app/services/modal-dialog.service';
 
 @Component({
   selector: 'app-global-message',
   templateUrl: './global-message.component.html',
   styleUrls: ['./global-message.component.css']
 })
-export class GlobalMessageComponent implements OnInit {
+export class GlobalMessageComponent {
 
-  constructor() { }
+  constructor(private modalDialog: ModalDialogService) {}
 
-  ngOnInit() {
+  onClose() {
+    this.modalDialog.toogleGlobalMessage();
   }
 
 }

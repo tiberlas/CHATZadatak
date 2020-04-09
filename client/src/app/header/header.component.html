@@ -7,13 +7,13 @@
         <div class="collapse navbar-collapse" id="navbarResponsive">
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item">
-                    <a class="nav-link text-warning" href="#">Private message</a>
+                    <a class="nav-link text-warning" (click)="onPrivate()">Private message</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link text-warning" href="#">Global message</a>
+                    <a class="nav-link text-warning" (click)="onGlobal()">Global message</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link badge badge-warning pl-1 pr-1" href="#">Sign off</a>
+                    <a routerLink="/sing-in" class="nav-link badge badge-warning pl-1 pr-1">Sign off</a>
                 </li>
             </ul>
         </div>
