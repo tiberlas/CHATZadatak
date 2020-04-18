@@ -1,19 +1,12 @@
-import { Component, OnInit } from '@angular/core';
-import { RESTService } from '../app/services/rest.service';
+import { Component } from '@angular/core';
 
 @Component({
 	selector: 'app-root',
 	templateUrl: './app.component.html'
 })
 
-export class AppComponent implements OnInit {
+export class AppComponent {
 
-	constructor(private rest: RESTService) { }
-
-	ngOnInit() {
-		this.rest.getLoggedInUssers().subscribe(data => {
-			console.log(data);
-		});
-	}
+	constructor() { }
 
 }

@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
+import { RESTService } from '../services/rest.service';
 
 @Component({
 	selector: 'app-sign-in',
@@ -13,14 +14,19 @@ export class SignInComponent {
 	password: string;
 	userValid: boolean = true;
 
-	constructor(private router: Router) { }
+	constructor(private router: Router,
+		private rest: RESTService) { }
 
 	onSignIn(form: NgForm) {
 		this.username = form.value.inputUsername;
 		this.password = form.value.inputPassword;
 
-		//ovde ide http zahtev za logovanje
-		//kredencijali su mokovani
+		let user = { username: this.username, password: this.password }
+
+		this.rest.login(user).subscribe(data => {
+			console.log('Is logged in', data)
+		});
+
 		this.userValid = true;
 		if (this.username === 'tibi' && this.password === '1234') {
 			this.router.navigate(['/home']);
