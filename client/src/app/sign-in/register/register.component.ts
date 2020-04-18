@@ -1,5 +1,8 @@
 import { Component } from '@angular/core';
 import { NgForm } from '@angular/forms';
+import { RESTService } from 'src/app/services/rest.service';
+
+import { UserModel } from '../../model/user.model';
 
 @Component({
 	selector: 'app-register',
@@ -8,12 +11,11 @@ import { NgForm } from '@angular/forms';
 })
 export class RegisterComponent {
 
-	private username: string;
-	private password: string;
+	private newUser: UserModel;
 	private usernameTaken: boolean = false;
 	private passwordsDontMatch: boolean = false;
 
-	constructor() { }
+	constructor(private rest: RESTService) { }
 
 	onCreateAccount(form: NgForm) {
 		if (form.value.inputPassword === form.value.inputPassword2) {
@@ -23,11 +25,13 @@ export class RegisterComponent {
 			return;
 		}
 
-		this.username = form.value.inputUsername;
-		this.password = form.value.inputPassword;
+		this.newUser = new UserModel(form.value.inputUsername,
+			form.value.inputPassword);
 		this.usernameTaken = false;
 
-		//http zahtev
+		this.rest.registerUser(this.newUser).subscribe(data => {
+			console.log('new user is registred');
+		});
 
 
 	}

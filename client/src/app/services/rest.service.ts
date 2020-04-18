@@ -11,15 +11,22 @@ export class RESTService {
 
     constructor(private http: HttpClient) { }
 
-    getLoggedInUssers(): Observable<string> {
-        console.log("HTTP GET")
-        return this.http.get<string>('http://localhost:8080/RESTApp/rest/demo/test');
-    }
-
     login(user: UserModel): Observable<any> {
         return this.http.post(
             this.BASE_URL + '/users/login',
             user);
     }
 
+    registerUser(user: UserModel): Observable<any> {
+        return this.http.post(
+            this.BASE_URL + '/users/register',
+            user
+        );
+    }
+
+    getAllRegisteredUsers(user: UserModel): Observable<any> {
+        return this.http.get<UserModel[]>(
+            this.BASE_URL + '/users/registered'
+        );
+    }
 }
