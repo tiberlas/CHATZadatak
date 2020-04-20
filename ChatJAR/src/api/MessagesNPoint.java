@@ -1,5 +1,6 @@
 package api;
 
+import javax.ejb.EJB;
 import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
 import javax.ws.rs.Consumes;
@@ -12,19 +13,21 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
 import model.MessagePOJO;
+import services.MessageServiceLocal;
 
 @Stateless
 @Path("/messages")
 @LocalBean
 public class MessagesNPoint {
 
-	//@EJB host
+	@EJB
+	private MessageServiceLocal messageService;
 	
 	@POST
 	@Path("/all")
 	@Consumes(MediaType.APPLICATION_JSON)
 	public Response sendPublicMessage(MessagePOJO message) {
-		//TODO
+		messageService.sentPublicMessage(message);
 		return Response.ok().build();
 	}
 	
@@ -32,7 +35,7 @@ public class MessagesNPoint {
 	@Path("/user")
 	@Consumes(MediaType.APPLICATION_JSON)
 	public Response sendPrivateMessage(MessagePOJO message) {
-		//TODO
+		messageService.sentPrivateMessage(message);
 		return Response.ok().build();
 	}
 	
@@ -40,8 +43,8 @@ public class MessagesNPoint {
 	@Path("/{user}")
 	@Produces(MediaType.APPLICATION_JSON)
 	public MessagePOJO[] getAllMessages(@PathParam("user") String username) {
-		MessagePOJO[] messages = new MessagePOJO[5];
-		//TODO
+		MessagePOJO[] messages = messageService.getAllMessages(username);
+		
 		return messages;
 	}
 	

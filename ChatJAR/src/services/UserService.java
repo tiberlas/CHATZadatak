@@ -1,13 +1,13 @@
 package services;
 
 import javax.ejb.EJB;
-import javax.ejb.Singleton;
+import javax.ejb.Stateless;
 
 import agentManager.AgentManagerLocal;
 import dataBaseService.existingUsers.UserDataBaseLocal;
 import model.UserPOJO;
 
-@Singleton
+@Stateless
 public class UserService implements UserServiceLocal{
 
 	/**
