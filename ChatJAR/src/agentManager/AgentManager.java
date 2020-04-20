@@ -4,7 +4,7 @@ import javax.ejb.EJB;
 import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
 
-import agents.HostAgent;
+import agents.HostAgentLocal;
 import agents.UserAgent;
 import dataBaseService.activeAgents.ActiveAgentsLocal;
 
@@ -15,21 +15,23 @@ public class AgentManager implements AgentManagerLocal{
 	@EJB
 	private ActiveAgentsLocal agents;
 	@EJB
-	private HostAgent hostAgent;
+	private HostAgentLocal hostAgent;
 
 	@Override
 	public void startAgent(String user) {
-		agents.addRunningAgent(user, new UserAgent(user));
-		
+		agents.addRunningAgent(user, new UserAgent(user, hostAgent.getAgentId()));
+		System.out.println("Starting agent " + user);
 	}
 
 	@Override
 	public void stopAgent(String name) {
+		System.out.println("Removeing agent " + name);
 		agents.removeAgent(name);
 	}
 
 	@Override
 	public String[] getAgents() {
+		//returns all user agents; host agent is removed from the list
 		String[] allAgents = agents.getRunningAgentsNames();
 		String[] userAgents = new String[allAgents.length-1];
 		

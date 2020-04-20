@@ -8,17 +8,15 @@ public class UserPOJO implements Serializable{
 	
 	private String username;
 	private String password;
-	private String host;
 	
 	public UserPOJO() {
 		super();
 	}
 	
-	public UserPOJO(String username, String password, String host) {
+	public UserPOJO(String username, String password) {
 		super();
 		this.username = username;
 		this.password = password;
-		this.host = host;
 	}
 	
 	public String getUsername() {
@@ -34,17 +32,9 @@ public class UserPOJO implements Serializable{
 		this.password = password;
 	}
 
-	public String getHost() {
-		return host;
-	}
-
-	public void setHost(String host) {
-		this.host = host;
-	}
-
 	@Override
 	public String toString() {
-		return "UserPOJO [username=" + username + ", password=" + password + ", host=" + host + "]";
+		return "UserPOJO [username=" + username + ", password=" + password + "]";
 	}
 
 }

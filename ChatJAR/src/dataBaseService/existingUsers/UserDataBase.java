@@ -24,8 +24,8 @@ public class UserDataBase implements UserDataBaseLocal {
 
 	@PostConstruct
 	public void initDataBase() {
-		UserPOJO fake1 = new UserPOJO("tibi", "1234", "master");
-		UserPOJO fake2 = new UserPOJO("svetlana", "qwer", "master");
+		UserPOJO fake1 = new UserPOJO("tibi", "1234");
+		UserPOJO fake2 = new UserPOJO("svetlana", "qwer");
 
 		users.put(fake1.getUsername(), fake1);
 		users.put(fake2.getUsername(), fake2);
@@ -52,13 +52,7 @@ public class UserDataBase implements UserDataBaseLocal {
 	
 	@Override
 	public List<UserPOJO> getAllUsers() {
-		List<UserPOJO> userList = new ArrayList<UserPOJO>();
-		
-		for(UserPOJO u : users.values()) {
-			userList.add(u);
-		}
-		
-		return userList;
+		return new ArrayList<UserPOJO>(users.values());
 	}
 	
 	@Override

@@ -28,12 +28,12 @@ public class ActiveAgents implements ActiveAgentsLocal {
 	
 	@Override
 	public Agent[] getRunningAgents() {
-		return (Agent[]) runningAgents.values().toArray();
+		return (Agent[]) runningAgents.values().toArray(new Agent[runningAgents.size()]);
 	}
 	
 	@Override
 	public String[] getRunningAgentsNames() {
-		return (String[]) runningAgents.keySet().toArray();
+		return (String[]) runningAgents.keySet().toArray(new String[runningAgents.size()]);
 	}
 
 	@Override

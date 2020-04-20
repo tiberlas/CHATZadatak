@@ -8,8 +8,10 @@ import javax.jms.Message;
 import dataBaseService.activeAgents.ActiveAgentsLocal;
 
 @Singleton
-public class HostAgent implements Agent {
+public class HostAgent implements HostAgentLocal {
 	
+	private static final long serialVersionUID = 1L;
+
 	@EJB
 	private ActiveAgentsLocal activeAgents;
 	
@@ -21,6 +23,7 @@ public class HostAgent implements Agent {
 		
 		hostName = "master";
 		activeAgents.addRunningAgent(hostName, this);
+		System.out.println("Host agent started: " + hostName);
 	}
 	
 	@Override

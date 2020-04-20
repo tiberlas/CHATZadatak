@@ -23,8 +23,7 @@ public class UserService implements UserServiceLocal{
 	@Override
 	public boolean registerNewUser(UserPOJO user) {
 		if(user != null && user.getUsername()!=null && !user.getUsername().trim().equals("")) {
-			
-			//user.setHost(agentManager.getHostName());
+
 			return database.addUser(user);
 			
 		} return false;

@@ -26,7 +26,7 @@ import services.UserServiceLocal;
 public class UserNPoint {
 
 	@EJB
-	private UserServiceLocal userService; //bice host
+	private UserServiceLocal userService;
 	
 	@POST
 	@Path("/register")
