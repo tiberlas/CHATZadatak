@@ -12,7 +12,8 @@ import agents.Agent;
 public class ActiveAgents implements ActiveAgentsLocal {
 
 	/**
-	 * BD for agents; has agents that are user's representation; and has exactly ONE host agent
+	 * BD for agents that are created on THIS HOST; has agents that are user's representation; and has exactly ONE host agent;
+	 * 
 	 * */
 	
 	private Map<String, Agent> runningAgents;
@@ -24,11 +25,6 @@ public class ActiveAgents implements ActiveAgentsLocal {
 	@Override
 	public Agent getRunningAgent(String username) {
 		return runningAgents.get(username);
-	}
-	
-	@Override
-	public Agent[] getRunningAgents() {
-		return (Agent[]) runningAgents.values().toArray(new Agent[runningAgents.size()]);
 	}
 	
 	@Override

@@ -12,4 +12,5 @@ public interface MessageDataBaseLocal {
 	void addMessage(MessagePOJO newMessage);
 	List<MessagePOJO> getAllMessagesFromUser(String senderName);
 	List<MessagePOJO> getAllMessagesForUser(String reciverName);
+
 }

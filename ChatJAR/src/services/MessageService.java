@@ -1,13 +1,17 @@
 package services;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
 
+import agents.HostAgentLocal;
+import dataBaseService.existingUsers.UserDataBaseLocal;
 import dataBaseService.messagesDataBase.MessageDataBaseLocal;
 import model.MessagePOJO;
+import model.UserPOJO;
 
 @Stateless
 public class MessageService implements MessageServiceLocal {
@@ -15,16 +19,37 @@ public class MessageService implements MessageServiceLocal {
 	@EJB
 	private MessageDataBaseLocal messages;
 	
+	@EJB
+	private UserDataBaseLocal users;
+	
+	@EJB
+	private HostAgentLocal host;
+	
 	@Override
 	public void sentPublicMessage(MessagePOJO message) {
+		setTime(message);
+		
+		//send to host, after host will send to all agents
+		message.setReciver("PUBLIC");
+		host.sendPublicMessage(message);
 		messages.addMessage(message);
-		//TODO: sent JMS to HOST
+		
+		//saves in DB
+		for(UserPOJO user: users.getAllUsers()) {
+			if(!user.getUsername().equals(message.getSender())) {
+				message.setReciver(user.getUsername());
+				messages.addMessage(message);
+			}
+		}
+		
 	}
 
 	@Override
 	public void sentPrivateMessage(MessagePOJO message) {
+		setTime(message);
 		messages.addMessage(message);
-		//TODO: sent JMS to HOST
+		
+		host.sendPrivateMessage(message);
 	}
 
 	@Override
@@ -35,5 +60,10 @@ public class MessageService implements MessageServiceLocal {
 		
 		return allMessages.toArray(new MessagePOJO[allMessages.size()]);
 	}
+	
+	private void setTime(MessagePOJO message) {
+		message.setCreationDate(Calendar.getInstance());
+	}
+
 
 }

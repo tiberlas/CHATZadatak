@@ -61,7 +61,7 @@ public class UserService implements UserServiceLocal{
 		
 		int i = 0;
 		for(UserPOJO user : database.getAllUsers()) {
-			allUsers[i++] = user.getUsername();
+			allUsers[i++] = new String(user.getUsername());
 		}
 		
 		return allUsers;

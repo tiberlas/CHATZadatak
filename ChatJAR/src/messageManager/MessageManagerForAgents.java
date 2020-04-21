@@ -7,13 +7,14 @@ import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
 import javax.jms.JMSException;
 import javax.jms.Message;
-import javax.jms.MessageConsumer;
 import javax.jms.MessageProducer;
 import javax.jms.Session;
 
+import model.MessagePOJO;
+
 @Stateless
 @LocalBean
-public class MessageManagerForAgents {
+public class MessageManagerForAgents implements MessageManagerForAgentsLocal {
 
 	public MessageManagerForAgents() {
 		super();
@@ -39,34 +40,20 @@ public class MessageManagerForAgents {
 		}
 	}
 
-	public void sendMessage(MessageMetaData msg) {
+	@Override
+	public void sendMessage(MessagePOJO newMessage) {
 		try {
-			defaultProducer.send(createTextMessage(msg));
+			Message msg = session.createTextMessage();
+			msg.setStringProperty("subject", newMessage.getSubject());
+			msg.setStringProperty("reciver", newMessage.getReciver());
+			msg.setStringProperty("sender", newMessage.getSender());
+			msg.setStringProperty("header", newMessage.getHeader());
+			msg.setStringProperty("creationDate", newMessage.getCreationDate().getTime().toString());
+			
+			defaultProducer.send(msg);
 		} catch (JMSException e) {
 			e.printStackTrace();
 		}
-	}
-	
-	private Message createTextMessage(MessageMetaData amsg) {
-		Message msg = null ;
-		try {
-			msg = session.createTextMessage();
-			for(String property : amsg.userArgs.keySet()) {
-				msg.setObjectProperty(property, amsg.userArgs.get(property));
-			}
-			return msg;
-		} catch (JMSException e) {
-			e.printStackTrace();
-		}
-		return msg;
-	}
-
-	public Session getSession() {
-		return factory.getSession();
-	}
-
-	public MessageConsumer getConsumer() {
-		return factory.getConsumer(session);
 	}
 	
 }

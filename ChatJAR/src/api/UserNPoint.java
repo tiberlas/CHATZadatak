@@ -4,6 +4,7 @@ import javax.ejb.EJB;
 import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
@@ -33,7 +34,7 @@ public class UserNPoint {
 	@Consumes(MediaType.APPLICATION_JSON)
 	public Response registerNewUsers(UserPOJO newUser, @Context UriInfo uriInfo) {
 		if(userService.registerNewUser(newUser)) {
-			
+			//TODO vraca localhost:8080/user/login
 			UriBuilder builder = uriInfo.getAbsolutePathBuilder();
 	        builder.replacePath("/users/login");
 			
@@ -54,11 +55,12 @@ public class UserNPoint {
 	@Path("/login")
 	@Consumes(MediaType.APPLICATION_JSON)
 	public Response login(@Context HttpServletRequest request, UserPOJO user) {
-
+		//TODO: cuvanje sesije da message ima ogr
 		if(userService.loggin(user)) {
 			
 			if(request.getSession().getAttribute("logged") == null) {
-				request.getSession().setAttribute("logged", user);
+				HttpSession ses = request.getSession();
+				ses.setAttribute("logged", user);
 			}
 			
 			return Response.ok("User is logged in").build();

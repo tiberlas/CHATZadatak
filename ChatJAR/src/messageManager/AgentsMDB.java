@@ -24,11 +24,14 @@ public class AgentsMDB implements MessageListener{
 	
 	@Override
 	public void onMessage(Message message) {
-		String receiver;
 		try {
-			receiver = (String) message.getObjectProperty("receiver");
-			Agent agent = (Agent) agents.getRunningAgent(receiver);
-			agent.handleMessage(message);
+			String reciver = message.getStringProperty("reciver");
+			Agent agent = (Agent) agents.getRunningAgent(reciver);
+			if(agent != null) {
+				agent.handleMessage(message);
+			} else {
+				System.out.println("FATAL ERROR AGENT IS NOT IN THE LIST");
+			}
 		} catch (JMSException e) {
 			e.printStackTrace();
 		}

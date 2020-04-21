@@ -38,7 +38,7 @@ public class AgentManager implements AgentManagerLocal{
 		int i = 0;
 		for(String agentName : allAgents) {
 			if(!agentName.equals(hostAgent.getAgentId())) {
-				userAgents[i++] = agentName;
+				userAgents[i++] = new String(agentName);
 			}
 		}
 		

@@ -8,7 +8,6 @@ import agents.Agent;
 public interface ActiveAgentsLocal {
 
 	Agent getRunningAgent(String username);
-	Agent[] getRunningAgents();
 	String[] getRunningAgentsNames();
 	void addRunningAgent(String username, Agent agent);
 	void removeAgent(String username);
