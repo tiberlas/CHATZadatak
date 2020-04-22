@@ -10,6 +10,7 @@ import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
@@ -34,9 +35,10 @@ public class UserNPoint {
 	@Consumes(MediaType.APPLICATION_JSON)
 	public Response registerNewUsers(UserPOJO newUser, @Context UriInfo uriInfo) {
 		if(userService.registerNewUser(newUser)) {
-			//TODO vraca localhost:8080/user/login
 			UriBuilder builder = uriInfo.getAbsolutePathBuilder();
-	        builder.replacePath("/users/login");
+			String path = uriInfo.getPath();
+			path.replace("register", "login");
+	        builder.replacePath(path);
 			
 			return Response.created(builder.build()).build();			
 
@@ -69,11 +71,10 @@ public class UserNPoint {
 	}
 
 	@DELETE
-	@Path("/loggedIn")
-	public Response logout(@Context HttpServletRequest request) {
+	@Path("/loggedIn/{user}")
+	public Response logout(@PathParam("user") String username, @Context HttpServletRequest request) {
 		
-		UserPOJO user = (UserPOJO) request.getSession().getAttribute("logged");
-		if(userService.loggout(user.getUsername())) {
+		if(userService.loggout(username)) {
 			
 			request.getSession().invalidate();
 			return Response.ok("Successfully logged out").build();
@@ -87,16 +88,5 @@ public class UserNPoint {
 	public String[] getAllLoggedIn() {
 		return userService.listOfAllLoggedInUsers();
 	}
-	
-	
-	@GET
-	@Path("/test")
-	@Produces(MediaType.APPLICATION_JSON)
-	public UserPOJO getTheCurrentUser(@Context HttpServletRequest request) {
-		UserPOJO user = (UserPOJO) request.getSession().getAttribute("logged");
-		
-		return user;
-	}
  	
-	
 }

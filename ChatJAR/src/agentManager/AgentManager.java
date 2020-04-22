@@ -18,9 +18,12 @@ public class AgentManager implements AgentManagerLocal{
 	private HostAgentLocal hostAgent;
 
 	@Override
-	public void startAgent(String user) {
-		agents.addRunningAgent(user, new UserAgent(user, hostAgent.getAgentId()));
-		System.out.println("Starting agent " + user);
+	public boolean startAgent(String user) {
+		if(!agents.checkIfAgentIsRunning(user)) {
+			agents.addRunningAgent(user, new UserAgent(user, hostAgent.getAgentId()));
+			System.out.println("Starting agent " + user);
+			return true;
+		} else return false;
 	}
 
 	@Override

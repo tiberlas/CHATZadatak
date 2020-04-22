@@ -1,7 +1,8 @@
 import { Component } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
-import { RESTService } from '../services/rest.service';
+import { RESTLogin } from '../services/rest-login.service';
+
 
 @Component({
 	selector: 'app-sign-in',
@@ -15,7 +16,7 @@ export class SignInComponent {
 	userValid: boolean = true;
 
 	constructor(private router: Router,
-		private rest: RESTService) { }
+		private rest: RESTLogin) { }
 
 	onSignIn(form: NgForm) {
 		this.username = form.value.inputUsername;
@@ -23,15 +24,20 @@ export class SignInComponent {
 
 		let user = { username: this.username, password: this.password }
 
-		this.rest.login(user).subscribe(data => {
-			console.log('Is logged in', data)
+		this.userValid = true;
+		this.rest.loginUser(user).subscribe(response => {
+			console.log(response);
+			if (response.status === 200) {
+				this.router.navigate(['/home']);
+				this.userValid = true;
+			} else {
+				this.userValid = false;
+			}
+		}, error => {
+			console.log('ERROR 406');
+			this.userValid = false;
 		});
 
-		this.userValid = true;
-		if (this.username === 'tibi' && this.password === '1234') {
-			this.router.navigate(['/home']);
-		} else {
-			this.userValid = false;
-		}
+
 	}
 }

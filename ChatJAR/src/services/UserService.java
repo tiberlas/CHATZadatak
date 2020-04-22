@@ -32,9 +32,7 @@ public class UserService implements UserServiceLocal{
 	@Override
 	public boolean loggin(UserPOJO user) {
 		if(database.checkIfExist(user)) {
-			
-			agentManager.startAgent(user.getUsername());
-			return true;
+			return agentManager.startAgent(user.getUsername());
 			
 		} else return false;
 	}
