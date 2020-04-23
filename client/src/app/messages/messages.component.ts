@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { MessageModel } from '../model/message.model';
+import { RESTMessage } from '../services/rest-messages.service';
 
 @Component({
 	selector: 'messages-chatagent',
@@ -10,36 +11,22 @@ export class MessagesComponent implements OnInit {
 
 	private messages: MessageModel[];
 
-	constructor() { }
+	constructor(private rest: RESTMessage) { }
 
 	ngOnInit() {
-		this.messages = [
-			{
-				resiver: 'abc',
-				sender: 'asdgfad',
-				creationDate: new Date(),
-				header: "New Message",
-				body: 'Ovo je neka poruka/nnovi red!',
-			},
-			{
-				resiver: 'abc',
-				sender: 'asdgfad',
-				creationDate: new Date(),
-				header: "New",
-				body: 'Ovo je neka poruka/nnovi red!dashgaislhgauisgda/niyadgfdasilghlafsd\nyuffoiyiuf',
-			},
-			{
-				resiver: 'abc',
-				sender: 'asdgfad',
-				creationDate: new Date(),
-				header: "New Message3",
-				body: 'Ovo je neka poruka/nnovi red!',
-			}
-		];
+		this.getAllMessages();
 	}
 
 	onRefresh() {
-		console.log('refresh');
+		this.getAllMessages();
+	}
+
+	private getAllMessages() {
+		this.rest.getAllMessages().subscribe(
+			data => {
+				this.messages = data;
+			}
+		);
 	}
 
 }

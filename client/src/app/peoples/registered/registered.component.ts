@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { RESTRegister } from 'src/app/services/rest-register.service';
 
 @Component({
 	selector: 'app-registered',
@@ -9,14 +10,18 @@ export class RegisteredComponent implements OnInit {
 
 	private users: string[];
 
-	constructor() { }
+	constructor(private rest: RESTRegister) { }
 
 	ngOnInit() {
-		this.users = [
-			'tibi',
-			'kiki',
-			'Magnus Veliki Magnuson drugi'
-		];
+		this.getAllRegisteredUsers();
+	}
+
+	private getAllRegisteredUsers() {
+		this.rest.getAllRegisteredUsers().subscribe(
+			data => {
+				this.users = data;
+			}
+		);
 	}
 
 }

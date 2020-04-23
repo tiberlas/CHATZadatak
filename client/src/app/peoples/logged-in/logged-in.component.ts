@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { RESTLogin } from 'src/app/services/rest-login.service';
 
 @Component({
 	selector: 'app-logged-in',
@@ -9,16 +10,17 @@ export class LoggedInComponent implements OnInit {
 
 	private users: string[];
 
-	constructor() { }
+	constructor(private rest: RESTLogin) { }
 
 	ngOnInit() {
-		this.users = [
-			'tibi',
-			'kiki',
-			'sui',
-			'ale',
-			'Magnus Veliki Magnuson drugi'
-		];
+		this.getAllActiveUsers();
 	}
 
+	private getAllActiveUsers() {
+		this.rest.getAllLoggedInUsers().subscribe(
+			data => {
+				this.users = data;
+			}
+		);
+	}
 }

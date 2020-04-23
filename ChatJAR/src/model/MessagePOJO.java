@@ -1,7 +1,7 @@
 package model;
 
 import java.io.Serializable;
-import java.util.Calendar;
+import java.util.Date;
 
 public class MessagePOJO implements Serializable {
 
@@ -14,7 +14,7 @@ public class MessagePOJO implements Serializable {
 	private String sender;
 	private String header;
 	private String subject;
-	private Calendar creationDate;
+	private Date creationDate;
 
 	public MessagePOJO() {
 		super();
@@ -26,10 +26,10 @@ public class MessagePOJO implements Serializable {
 		this.sender = sender;
 		this.header = header;
 		this.subject = subject;
-		this.creationDate = Calendar.getInstance();
+		this.creationDate = new Date();
 	}
 	
-	public MessagePOJO(String reciver, String sender, String header, String subject, Calendar creationDate) {
+	public MessagePOJO(String reciver, String sender, String header, String subject, Date creationDate) {
 		super();
 		this.reciver = reciver;
 		this.sender = sender;
@@ -70,11 +70,11 @@ public class MessagePOJO implements Serializable {
 		this.subject = subject;
 	}
 
-	public Calendar getCreationDate() {
+	public Date getCreationDate() {
 		return creationDate;
 	}
 
-	public void setCreationDate(Calendar creationDate) {
+	public void setCreationDate(Date creationDate) {
 		this.creationDate = creationDate;
 	}
 

@@ -1,7 +1,7 @@
 package services;
 
 import java.util.ArrayList;
-import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 import javax.ejb.EJB;
@@ -62,7 +62,7 @@ public class MessageService implements MessageServiceLocal {
 	}
 	
 	private void setTime(MessagePOJO message) {
-		message.setCreationDate(Calendar.getInstance());
+		message.setCreationDate(new Date());
 	}
 
 

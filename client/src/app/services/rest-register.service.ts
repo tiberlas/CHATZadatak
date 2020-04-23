@@ -15,7 +15,7 @@ export class RESTRegister {
         return this.http.post(this.BASE_URL + '/register', user, { observe: 'response', responseType: 'text' });
     }
 
-    getAllRegisteredUsers(user: UserModel): Observable<any> {
+    getAllRegisteredUsers(): Observable<any> {
         return this.http.get<string[]>(this.BASE_URL + '/registered');
     }
 }

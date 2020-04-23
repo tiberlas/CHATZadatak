@@ -3,10 +3,10 @@ export class MessageModel {
     public sender: string;
     public creationDate: Date;
     public header: string;
-    public body: string;
+    public subject: string;
 
-    constructor(resiver: string, sender: string, creationDate: Date, header: string, body: string) {
-        this.body = body;
+    constructor(resiver: string, sender: string, creationDate: Date, header: string, subject: string) {
+        this.subject = subject;
         this.creationDate = creationDate;
         this.header = header;
         this.resiver = resiver;
