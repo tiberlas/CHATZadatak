@@ -28,7 +28,7 @@ export class RESTMessage {
 
 					for (let i = 0; i < response.length; ++i) {
 						messageArray.push({
-							resiver: response[i].resiver,
+							reciver: response[i].reciver,
 							sender: response[i].sender,
 							creationDate: new Date(response[i].creationDate),
 							header: response[i].header,

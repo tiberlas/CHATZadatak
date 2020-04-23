@@ -1,13 +1,19 @@
 export class ModalDialogService {
 
-    modalPrivateMessage: boolean = false;
-    modalGlobalMessage: boolean = false;
+    private modalPrivateMessage: boolean = false;
+    private modalGlobalMessage: boolean = false;
+    private reciverName: string;
 
-    toogleGlobalMessage() {
+    public toogleGlobalMessage() {
         this.modalGlobalMessage = !this.modalGlobalMessage;
     }
 
-    tooglePrivateMessage() {
+    public tooglePrivateMessage(reciverName: string) {
+        this.reciverName = reciverName;
         this.modalPrivateMessage = !this.modalPrivateMessage;
+    }
+
+    public getReciverName(): string {
+        return this.reciverName;
     }
 }

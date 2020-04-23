@@ -19,6 +19,7 @@ import { NotFoundComponent } from './not-found/not-found.component';
 import { HomeComponent } from './home/home.component';
 import { PeopleComponent } from './peoples/people/people.component';
 import { ModalDialogService } from 'src/app/services/modal-dialog.service';
+import { RecogniseMePipe } from './pipe/recognise-me.pipe';
 
 @NgModule({
   declarations: [
@@ -35,7 +36,8 @@ import { ModalDialogService } from 'src/app/services/modal-dialog.service';
     RegisterComponent,
     NotFoundComponent,
     HomeComponent,
-    PeopleComponent
+    PeopleComponent,
+    RecogniseMePipe
   ],
   imports: [
     BrowserModule,

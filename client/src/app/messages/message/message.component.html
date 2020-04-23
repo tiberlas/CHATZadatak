@@ -11,7 +11,11 @@
 
         <hr class="bg-warning">
         <div class="card-fotter">
-            <div class="badge badge-warning">{{message.sender}}</div>
+            <p>Sender:&nbsp;
+                <span class="badge badge-warning">{{message.sender | recogniseMe}}</span>
+                &nbsp;Reciver:&nbsp;
+                <span class="badge badge-warning">{{message.reciver | recogniseMe}}</span>
+            </p>
         </div>
     </div>
 </div>

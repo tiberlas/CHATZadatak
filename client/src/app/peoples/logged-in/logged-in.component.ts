@@ -8,7 +8,7 @@ import { RESTLogin } from 'src/app/services/rest-login.service';
 })
 export class LoggedInComponent implements OnInit {
 
-	private users: string[];
+	private users: string[] = [];
 
 	constructor(private rest: RESTLogin) { }
 
@@ -22,5 +22,12 @@ export class LoggedInComponent implements OnInit {
 				this.users = data;
 			}
 		);
+	}
+
+	private fakeData() {
+		this.users.push("user1");
+		this.users.push("user2");
+		this.users.push("user3");
+		this.users.push("user4");
 	}
 }

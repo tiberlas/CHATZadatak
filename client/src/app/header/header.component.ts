@@ -18,10 +18,6 @@ export class HeaderComponet {
 		this.modalDialog.toogleGlobalMessage();
 	}
 
-	onPrivate() {
-		this.modalDialog.tooglePrivateMessage();
-	}
-
 	onSignOff() {
 		this.rest.logoutUser().subscribe();
 		this.router.navigate(['/sign-in']);

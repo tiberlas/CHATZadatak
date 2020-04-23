@@ -57,8 +57,10 @@ public class HostAgent implements HostAgentLocal {
 	@Override
 	public void sendPublicMessage(MessagePOJO message) {
 		for(String reciver: activeAgents.getRunningAgentsNames()) {
-			message.setReciver(reciver);
-			messageManager.sendMessage(message);
+			if(!reciver.equals(message.getSender())) {
+				message.setReciver(reciver);
+				messageManager.sendMessage(message);				
+			}
 		}
 	}
 
