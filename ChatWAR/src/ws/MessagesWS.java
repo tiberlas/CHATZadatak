@@ -8,6 +8,8 @@ import java.util.Map;
 
 import javax.ejb.LocalBean;
 import javax.ejb.Singleton;
+import javax.json.Json;
+import javax.json.JsonObject;
 import javax.websocket.EncodeException;
 import javax.websocket.OnClose;
 import javax.websocket.OnError;
@@ -19,7 +21,7 @@ import javax.websocket.server.ServerEndpoint;
 import model.MessagePOJO;
 
 @Singleton
-@ServerEndpoint("/messages/ws")
+@ServerEndpoint(value = "/messages/ws")
 @LocalBean
 public class MessagesWS {
 
@@ -40,28 +42,47 @@ public class MessagesWS {
 	
 	@OnMessage
 	public void registerAgent(Session ses, String agentName) {
-		System.out.println("WS agent: " + agentName);
 		
 		if(sessions.contains(ses)) {
+			System.out.println("WS agent: " + agentName);
 			sessionAgentMap.put(agentName, ses);
+		}
+	}
+	
+	public void removeAgent(String agenyName) {
+		Session agentSession = sessionAgentMap.remove(agenyName);
+		
+		if(agentSession != null) {
+			sessions.remove(agentSession);
 		}
 	}
 	
 	public void echoTextMessage(String message) {
 		System.out.println("ECHO: " + message);
+		for(Session s : sessions) {
+			try {
+				s.getBasicRemote().sendText(message);
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
 	}
 	
 	public void sendMessage(MessagePOJO msg) {
 		try {
 			Session s = sessionAgentMap.get(msg.getReciver());
-	        s.getBasicRemote().sendObject(msg);
+	        
+//			JsonObject jsonMsg = (JsonObject) Json.createObjectBuilder()
+//					.add("reciver", msg.getReciver())
+//					.add("sender", msg.getSender())
+//					.add("creationDate", msg.getCreationDate().toString())
+//					.add("header", msg.getHeader())
+//					.add("subject", msg.getSubject());
+			
+			s.getBasicRemote().sendText(JsonEncoder.messageToJson(msg));
 		
 		} catch (IOException e) {
-			System.out.println("SOCKET ERROR!");
-			//e.printStackTrace();
-		} catch (EncodeException e) {
-			System.out.println("MESSAGE ERROR!");
-			//e.printStackTrace();
+			e.printStackTrace();
 		}
 	}
 

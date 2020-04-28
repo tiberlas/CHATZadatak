@@ -8,22 +8,24 @@ import { map } from 'rxjs/operators';
 export class ChatService {
 
     private WS_URL: string = 'ws://localhost:8080/ChatWAR/messages/ws';
-    public message: Subject<MessageModel>;
+    public message: Subject<any>;
 
     constructor(private ws: WebSocketService) {
-        this.message = <Subject<MessageModel>>ws.connect(this.WS_URL)
+        this.message = <Subject<any>>ws.connect(this.WS_URL)
             .pipe(
                 map(
-                    (res: MessageEvent): MessageModel => {
-                        let data = JSON.parse(res.data);
+                    (res: any): any => {
+                        console.log('WS MESSAGE FROM BACK');
+                        console.log(res);
+                        // let data = JSON.parse(res.data);
 
-                        return {
-                            reciver: data.reciver,
-                            sender: data.sender,
-                            creationDate: data.creationDate,
-                            header: data.header,
-                            subject: data.subject
-                        }
+                        // return {
+                        //     reciver: data.reciver,
+                        //     sender: data.sender,
+                        //     creationDate: data.creationDate,
+                        //     header: data.header,
+                        //     subject: data.subject
+                        // }
                     }
                 )
             );

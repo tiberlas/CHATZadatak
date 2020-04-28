@@ -5,7 +5,7 @@ import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
 
 import agents.HostAgentLocal;
-import agents.UserAgent;
+import agents.UserAgentLocal;
 import dataBaseService.activeAgents.ActiveAgentsLocal;
 
 @Stateless
@@ -17,10 +17,12 @@ public class AgentManager implements AgentManagerLocal{
 	@EJB
 	private HostAgentLocal hostAgent;
 
+	@EJB
+	private UserAgentLocal agent;
+	
 	@Override
 	public boolean startAgent(String user) {
 		if(!agents.checkIfAgentIsRunning(user)) {
-			UserAgent agent = new UserAgent();
 			agent.startUp(user, hostAgent.getAgentId());
 			agents.addRunningAgent(user, agent);
 			System.out.println("Starting agent " + user);

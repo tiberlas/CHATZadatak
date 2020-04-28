@@ -6,4 +6,6 @@ import javax.ejb.Local;
 public interface UserAgentLocal extends Agent {
 
 	String getHostName();
+
+	void startUp(String username, String hostName);
 }

@@ -29,6 +29,7 @@ public class UserAgent implements UserAgentLocal{
 		super();
 	}
 	
+	@Override
 	public void startUp(String username, String hostName) {
 		agentName = username;
 		this.hostName = hostName;
@@ -50,6 +51,7 @@ public class UserAgent implements UserAgentLocal{
 			System.out.println(message.getStringProperty("creationDate"));
 			System.out.println("--------------------------------");
 			
+//			@SuppressWarnings("deprecation")
 			MessagePOJO msg = new MessagePOJO(
 					message.getStringProperty("reciver"),
 					message.getStringProperty("sender"),
@@ -59,11 +61,12 @@ public class UserAgent implements UserAgentLocal{
 					);
 			
 			//poslati web socketu poruku
-			ws.echoTextMessage("HELLO THERE"); //NULL POINTER EXP
-
+			//ws.echoTextMessage("HELLO THERE"); //NULL POINTER EXP
+			ws.sendMessage(msg);
+			
 		} catch (JMSException e) {
 			System.out.println("JMS EXCEPTION");
-			//e.printStackTrace();
+			e.printStackTrace();
 		}
 	}
 
@@ -79,6 +82,7 @@ public class UserAgent implements UserAgentLocal{
 	
 	@PreDestroy
 	public void cleanup() {
+		ws.removeAgent(agentName);
 		System.out.println("Agent " + agentName + " on host " + hostName + " is removed!");
 	}
 }

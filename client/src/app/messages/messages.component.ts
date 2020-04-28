@@ -14,11 +14,11 @@ export class MessagesComponent implements OnInit {
 
 	constructor(private rest: RESTMessage, private chat: ChatService) {
 		chat.message.subscribe(
-			(msg: MessageModel) => {
-				this.messages.push(msg);
-			}
+			// (msg: MessageModel) => {
+			// 	this.messages.push(msg);
+			// }
 		);
-	 }
+	}
 
 	ngOnInit() {
 		this.getAllMessages();
