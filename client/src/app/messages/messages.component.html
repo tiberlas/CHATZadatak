@@ -6,7 +6,7 @@
 
     <br>
 
-    <div *ngFor="let m of messages">
+    <div *ngFor="let m of messages.getAllMessages()">
         <app-message [message]="m"></app-message>
         <br>
     </div>

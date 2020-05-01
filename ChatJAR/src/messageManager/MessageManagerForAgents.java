@@ -48,7 +48,7 @@ public class MessageManagerForAgents implements MessageManagerForAgentsLocal {
 			msg.setStringProperty("reciver", newMessage.getReciver());
 			msg.setStringProperty("sender", newMessage.getSender());
 			msg.setStringProperty("header", newMessage.getHeader());
-			msg.setStringProperty("creationDate", newMessage.getCreationDate().toString());
+			msg.setLongProperty("creationDate", newMessage.getCreationDate().getTime());
 			
 			defaultProducer.send(msg);
 		} catch (JMSException e) {

@@ -29,6 +29,7 @@ export class PrivateMessageComponent {
 
 		let message: MessageModel = new MessageModel(this.modalDialog.getReciverName(), this.user.username, new Date(), header, subject);
 		this.rest.sentPrivateMessage(message).subscribe();
+		this.onClose();
 	}
 
 	private validateForm(header: string, subject: string): boolean {

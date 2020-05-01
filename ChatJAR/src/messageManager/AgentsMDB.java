@@ -33,7 +33,8 @@ public class AgentsMDB implements MessageListener{
 				System.out.println("FATAL ERROR AGENT IS NOT IN THE LIST");
 			}
 		} catch (JMSException e) {
-			e.printStackTrace();
+			System.out.println("JMS EXCEPTION");
+			//e.printStackTrace();
 		}
 	}
 

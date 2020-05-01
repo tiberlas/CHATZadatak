@@ -7,6 +7,7 @@ import javax.ejb.Stateless;
 import agents.HostAgentLocal;
 import agents.UserAgentLocal;
 import dataBaseService.activeAgents.ActiveAgentsLocal;
+import ws.MessagesWS;
 
 @Stateless
 @LocalBean
@@ -19,6 +20,9 @@ public class AgentManager implements AgentManagerLocal{
 
 	@EJB
 	private UserAgentLocal agent;
+	
+	@EJB
+	private MessagesWS ws;
 	
 	@Override
 	public boolean startAgent(String user) {
@@ -34,6 +38,7 @@ public class AgentManager implements AgentManagerLocal{
 	public void stopAgent(String name) {
 		System.out.println("Removeing agent " + name);
 		agents.removeAgent(name);
+		ws.removeAgent(name);
 	}
 
 	@Override

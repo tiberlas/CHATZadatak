@@ -29,6 +29,7 @@ export class GlobalMessageComponent {
 
 		let message: MessageModel = new MessageModel("PUBLIC", this.user.username, new Date(), header, subject);
 		this.rest.sentPublicMessage(message).subscribe();
+		this.onClose();
 	}
 
 	private validateForm(header: string, subject: string): boolean {

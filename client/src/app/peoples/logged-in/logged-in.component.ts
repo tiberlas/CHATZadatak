@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { RESTLogin } from 'src/app/services/rest-login.service';
 import { UserStatus } from 'src/app/model/user-status';
-import { UserStatusService } from 'src/app/services/user-status.service';
+import { LoggedUsersService } from 'src/app/services/logged-users.service';
 
 @Component({
 	selector: 'app-logged-in',
@@ -10,22 +10,9 @@ import { UserStatusService } from 'src/app/services/user-status.service';
 })
 export class LoggedInComponent implements OnInit {
 
-	private users: string[] = [];
+	constructor(private rest: RESTLogin, private users: LoggedUsersService) {
 
-	constructor(private rest: RESTLogin, private userStatus: UserStatusService) {
-		userStatus.users.subscribe(
-			(user: UserStatus) => {
-				if(user.isActive === true && this.users.indexOf(user.username) == -1) {
-					this.users.push(user.username);
-				} else {
-					const index = this.users.indexOf(user.username);
-					if(index > -1) {
-						this.users.splice(index, 1);
-					}
-				}
-			}
-		);
-	 }
+	}
 
 	ngOnInit() {
 		this.getAllActiveUsers();
@@ -33,16 +20,10 @@ export class LoggedInComponent implements OnInit {
 
 	private getAllActiveUsers() {
 		this.rest.getAllLoggedInUsers().subscribe(
-			data => {
-				this.users = data;
+			(data: string[]) => {
+				this.users.updateActiveUsers(data);
 			}
 		);
 	}
 
-	private fakeData() {
-		this.users.push("user1");
-		this.users.push("user2");
-		this.users.push("user3");
-		this.users.push("user4");
-	}
 }

@@ -1,15 +1,13 @@
 package agents;
 
 
-import java.util.Date;
-
 import javax.annotation.PreDestroy;
 import javax.ejb.EJB;
 import javax.ejb.LocalBean;
 import javax.ejb.Stateful;
-import javax.jms.JMSException;
 import javax.jms.Message;
 
+import adapter.MessageJMSToPOJOAdapter;
 import model.MessagePOJO;
 import ws.MessagesWS;
 
@@ -42,31 +40,11 @@ public class UserAgent implements UserAgentLocal{
 		 * dobije od MessageDrivenBean tj od MessageManagerForAgents dobije message(JMS)
 		 * sva polja od JMS su stringovi
 		 * */
-		
-		try {			
-			System.out.println("recived a message from " + message.getStringProperty("sender"));
-			System.out.println("to " + message.getStringProperty("reciver"));
-			System.out.println("header " + message.getStringProperty("header"));
-			System.out.println("content " + message.getStringProperty("subject"));
-			System.out.println(message.getStringProperty("creationDate"));
-			System.out.println("--------------------------------");
+		MessagePOJO msg = MessageJMSToPOJOAdapter.convertFromJmsToPojo(message);		
 			
-//			@SuppressWarnings("deprecation")
-			MessagePOJO msg = new MessagePOJO(
-					message.getStringProperty("reciver"),
-					message.getStringProperty("sender"),
-					message.getStringProperty("header"),
-					message.getStringProperty("subject"),
-					new Date()
-					);
-			
-			//poslati web socketu poruku
-			//ws.echoTextMessage("HELLO THERE"); //NULL POINTER EXP
+		//poslati web socketu poruku
+		if(msg != null) {	
 			ws.sendMessage(msg);
-			
-		} catch (JMSException e) {
-			System.out.println("JMS EXCEPTION");
-			e.printStackTrace();
 		}
 	}
 
@@ -82,7 +60,6 @@ public class UserAgent implements UserAgentLocal{
 	
 	@PreDestroy
 	public void cleanup() {
-		ws.removeAgent(agentName);
 		System.out.println("Agent " + agentName + " on host " + hostName + " is removed!");
 	}
 }
