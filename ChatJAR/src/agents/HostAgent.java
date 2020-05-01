@@ -1,8 +1,12 @@
 package agents;
 
+import java.net.Inet4Address;
+import java.net.UnknownHostException;
+
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.ejb.Singleton;
+import javax.ejb.Startup;
 import javax.jms.JMSException;
 import javax.jms.Message;
 
@@ -10,6 +14,7 @@ import dataBaseService.activeAgents.ActiveAgentsLocal;
 import messageManager.MessageManagerForAgentsLocal;
 import model.MessagePOJO;
 
+@Startup
 @Singleton
 public class HostAgent implements HostAgentLocal {
 	
@@ -21,15 +26,26 @@ public class HostAgent implements HostAgentLocal {
 	@EJB
 	private MessageManagerForAgentsLocal messageManager;
 	
+	@EJB
+	private ServerDiscovery serverDiscovery;
+	
 	private String hostName;
+	private String ipAddress;
 	
 	@PostConstruct
 	public void setUp() {
-		//TODO: server discovery protocol
+		try {
+			Inet4Address ipV4 = (Inet4Address) Inet4Address.getLocalHost();
+			ipAddress = ipV4.getHostAddress();
+		} catch (UnknownHostException e) {
+			e.printStackTrace();
+			ipAddress = "localhost";
+		}
 		
-		hostName = "master";
+		hostName = serverDiscovery.getHostName();
+		
 		activeAgents.addRunningAgent(hostName, this);
-		System.out.println("Host agent started: " + hostName);
+		System.out.println("Host agent started: " + hostName + " ipV4" + ipAddress);
 	}
 	
 	@Override
