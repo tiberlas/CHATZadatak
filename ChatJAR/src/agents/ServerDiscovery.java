@@ -26,8 +26,7 @@ public class ServerDiscovery {
 		
 		List<String> potentialAddresses = listIPAddresses();
 		
-		//!!!DANGER
-		potentialAddresses.add("127.0.0.1");
+		//potentialAddresses.add("127.0.0.1");
 		
 		List<HostPOJO> findedHostAgents = new ArrayList<HostPOJO>();
 		for(String address: potentialAddresses) {
@@ -88,8 +87,7 @@ public class ServerDiscovery {
 		ResteasyClient client = new ResteasyClientBuilder().build();
 		List<HostPOJO> findedHost = new ArrayList<HostPOJO>();
 		
-		//!!!DANGER
-		int[] posiblePorts = new int[] {8080, 8081, 8082, 8083, 9090, 9091, 9092, 9093};
+		int[] posiblePorts = new int[] {8080, 8081, 8082, 8083, 8084, 9090, 9091, 9092, 9093, 9094};
 		
 		ExecutorService es = Executors.newCachedThreadPool();
 		for(int portNumber : posiblePorts) {
