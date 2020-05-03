@@ -56,11 +56,31 @@ public class MessagesWS {
 	}
 	
 	public void removeAgent(String agenyName) {
+		if(sessionAgentMap.containsKey(agenyName)) {
+			return;
+		}
+		
 		Session agentSession = sessionAgentMap.remove(agenyName);
 
 		UserStatus newUser = new UserStatus(agenyName, false);
 		try {
 			agentSession.close();
+
+			for(Session s: activeSessions) {
+				if(s != null && s.isOpen()) {
+					s.getBasicRemote().sendText(JsonEncoder.userStatusToJson(newUser));					
+				}
+			}
+
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
+	}
+	
+	public void addAgent(String agenyName) {
+		UserStatus newUser = new UserStatus(agenyName, true);
+		try {
 
 			for(Session s: activeSessions) {
 				if(s != null && s.isOpen()) {

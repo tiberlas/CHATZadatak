@@ -39,6 +39,15 @@ public class MessagesNPoint {
 		return Response.ok().build();
 	}
 	
+	@POST
+	@Path("/user-agents-only")
+	@Consumes(MediaType.APPLICATION_JSON)
+	public Response sendPublicMessageToMyAgentsOnly(MessagePOJO message) {
+		
+		messageService.recivedPublicMessageFromHost(message);
+		return Response.ok().build();
+	}
+	
 	@GET
 	@Path("/{user}")
 	@Produces(MediaType.APPLICATION_JSON)

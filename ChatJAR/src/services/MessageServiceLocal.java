@@ -10,4 +10,5 @@ public interface MessageServiceLocal {
 	void sentPublicMessage(MessagePOJO message);
 	void sentPrivateMessage(MessagePOJO message);
 	MessagePOJO[] getAllMessages(String user);
+	void recivedPublicMessageFromHost(MessagePOJO message);
 }

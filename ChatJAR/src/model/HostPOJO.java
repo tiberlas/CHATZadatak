@@ -1,33 +1,28 @@
 package model;
 
-import java.util.ArrayList;
-import java.util.List;
-
 public class HostPOJO {
 
-	private String ip;
+	private String ipAddress;
+	private int portNumber;
 	private String alias;
-	private List<String> activeAgentsOnThisHost;
 	
-	public HostPOJO(String ip, String alias) {
-		super();
-		this.ip = ip;
+	public HostPOJO(String ip, int port, String alias) {
 		this.alias = alias;
-		this.activeAgentsOnThisHost = new ArrayList<String>();
-	}	
-	
-	public HostPOJO(String ip, String alias, List<String> activeAgents) {
-		super();
-		this.ip = ip;
-		this.alias = alias;
-		this.activeAgentsOnThisHost = activeAgents;
+		this.ipAddress = ip;
+		this.portNumber = port;
 	}
 	
-	public String getIp() {
-		return ip;
+	public String getIpAddress() {
+		return ipAddress;
 	}
-	public void setIp(String ip) {
-		this.ip = ip;
+	public void setIpAddress(String ipAddress) {
+		this.ipAddress = ipAddress;
+	}
+	public int getPortNumber() {
+		return portNumber;
+	}
+	public void setPortNumber(int portNumber) {
+		this.portNumber = portNumber;
 	}
 	public String getAlias() {
 		return alias;
@@ -35,23 +30,11 @@ public class HostPOJO {
 	public void setAlias(String alias) {
 		this.alias = alias;
 	}
-	public List<String> getActiveAgentsOnThisHost() {
-		return activeAgentsOnThisHost;
+
+	@Override
+	public String toString() {
+		return "HostPOJO [ipAddress=" + ipAddress + ", portNumber=" + portNumber + ", alias=" + alias + "]";
 	}
-	public void setActiveAgentsOnThisHost(List<String> activeAgentsOnThisHost) {
-		this.activeAgentsOnThisHost = activeAgentsOnThisHost;
-	}
-	public void addAgentToHost(String agentName) {
-		this.activeAgentsOnThisHost.add(agentName);
-	}
-	public void removeAgentFromHost(String agentName) {
-		this.activeAgentsOnThisHost.remove(agentName);
-	}
-	public void clearAgentsFromHost() {
-		this.activeAgentsOnThisHost.clear();
-	}
-	public boolean hasAgentWithName(String agentName) {
-		return this.activeAgentsOnThisHost.contains(agentName);
-	}
+
 	
 }

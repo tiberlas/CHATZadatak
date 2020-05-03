@@ -7,6 +7,7 @@ import javax.ejb.Stateless;
 import agents.HostAgentLocal;
 import agents.UserAgentLocal;
 import dataBaseService.activeAgents.ActiveAgentsLocal;
+import model.ActiveUserPOJO;
 import ws.MessagesWS;
 
 @Stateless
@@ -15,6 +16,7 @@ public class AgentManager implements AgentManagerLocal{
 
 	@EJB
 	private ActiveAgentsLocal agents;
+	
 	@EJB
 	private HostAgentLocal hostAgent;
 
@@ -29,6 +31,9 @@ public class AgentManager implements AgentManagerLocal{
 		if(!agents.checkIfAgentIsRunning(user)) {
 			agent.startUp(user, hostAgent.getAgentId());
 			agents.addRunningAgent(user, agent);
+			
+			hostAgent.addActiveUser(new ActiveUserPOJO(user, hostAgent.getAgentId()));
+			
 			System.out.println("Starting agent " + user);
 			return true;
 		} else return false;
@@ -38,6 +43,7 @@ public class AgentManager implements AgentManagerLocal{
 	public void stopAgent(String name) {
 		System.out.println("Removeing agent " + name);
 		agents.removeAgent(name);
+		hostAgent.removeActiveUser(name);
 		ws.removeAgent(name);
 	}
 

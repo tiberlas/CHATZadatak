@@ -51,6 +51,11 @@ public class MessageService implements MessageServiceLocal {
 		
 		host.sendPrivateMessage(message);
 	}
+	
+	@Override
+	public void recivedPublicMessageFromHost(MessagePOJO message) {
+		host.sendMessageToAllMyActiveAgents(message);
+	}
 
 	@Override
 	public MessagePOJO[] getAllMessages(String user) {

@@ -53,6 +53,7 @@ public class ActiveAgents implements ActiveAgentsLocal {
 	}
 	
 	@PreDestroy
+	@Override
 	public void cleanUp() {
 		runningAgents.clear();
 	}

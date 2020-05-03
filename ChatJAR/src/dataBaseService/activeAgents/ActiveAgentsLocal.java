@@ -13,5 +13,6 @@ public interface ActiveAgentsLocal {
 	void removeAgent(String username);
 	boolean checkIfAgentIsRunning(String username);
 	int numberOfRunningAgents();
+	void cleanUp();
 
 }
